@@ -35,7 +35,8 @@ def webhook():
                     print(sender_phone,profile_name,message)
                     responseGPT = send_chat_gpt(message)
                     send_message_text(sender_phone,responseGPT)
-                # return jsonify(request_data),200
+                else:
+                    send_message_text(sender_phone,f"Disculpa {profile_name}, solo soporto mensajes de texto")
             return 'OK', 200
         else:
             return 'Error', 400
