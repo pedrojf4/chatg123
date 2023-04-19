@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import os
 from dotenv import load_dotenv
 from botChatgpt import send_message_text, send_chat_gpt
+from waitress import serve
 load_dotenv()
 
 
@@ -46,7 +47,8 @@ def webhook():
             return 'Error', 400
 
 if __name__ == "__main__":
-     app.run(debug=False, port=os.getenv("PORT", default=5000))
+    app.run(debug=False, port=5000)
+    
      
      
-########### THE CHANGES ############ 
+ 
