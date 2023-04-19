@@ -28,16 +28,11 @@ def webhook():
                 
                 sender_phone = changes['value']['contacts'][0]['wa_id']
                 profile_name = changes['value']['contacts'][0]['profile']['name']
-                message_text = changes['value']['messages'][0]['text']['body']
-
-                print(sender_phone,profile_name,message_text)
-
+                           
                 if changes['value']['messages'][0]['type'] == 'text':
-                    # Get the message
+                    
                     message = changes['value']['messages'][0]['text']['body']
-                    additional_data = changes['value']
-                    # Send the message to the chatbot
-                    ###chatbot.proccess_message(sender_phone,message,additional_data)
+                    print(sender_phone,profile_name,message)
                     responseGPT = send_chat_gpt(message)
                     send_message_text(sender_phone,responseGPT)
                 # return jsonify(request_data),200
