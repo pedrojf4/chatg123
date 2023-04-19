@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 import os
 from dotenv import load_dotenv
 from botChatgpt import send_message_text, send_chat_gpt
-from waitress import serve
 load_dotenv()
 
 
