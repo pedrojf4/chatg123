@@ -8,9 +8,10 @@ load_dotenv()
 app = Flask(__name__)
 
 #* THIS IS THE WEBHOOK
-
+messageTwice = ""
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
+    global messageTwice
     if request.method == 'GET':
         hmode = request.args.get('hub.mode')
         htoken = request.args.get('hub.verify_token')
@@ -30,11 +31,12 @@ def webhook():
                 profile_name = changes['value']['contacts'][0]['profile']['name']
                            
                 if changes['value']['messages'][0]['type'] == 'text':
-                    
-                    message = changes['value']['messages'][0]['text']['body']
-                    print(sender_phone,profile_name,message)
-                    responseGPT = send_chat_gpt(message)
-                    send_message_text(sender_phone,responseGPT)
+                    if (message != messageTwice):
+                        message = changes['value']['messages'][0]['text']['body']
+                        messageTwice = message
+                        print(sender_phone,profile_name,message)
+                        responseGPT = send_chat_gpt(message)
+                        send_message_text(sender_phone,responseGPT)
                 else:
                     send_message_text(sender_phone,f"Disculpa {profile_name}, solo soporto mensajes de texto")
             return 'OK', 200
